@@ -2,6 +2,7 @@ package main
 
 import (
 	"LawPrompt/config"
+	"LawPrompt/internal/handlers"
 	"errors"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -20,6 +21,7 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+	e.POST("/ask", handlers.PostAskModel)
 	if err := e.Start(":" + cfg.Env.Port); err != nil && !errors.Is(err, http.ErrServerClosed) {
 		slog.Error("failed to start server", "error", err)
 	}

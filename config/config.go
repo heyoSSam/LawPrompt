@@ -7,7 +7,9 @@ import (
 
 type Config struct {
 	Env struct {
-		Port string `yaml:"PORT"`
+		Port      string `yaml:"PORT"`
+		Model     string `yaml:"MODEL"`
+		OllamaUrl string `yaml:"OLLAMAURL"`
 	} `yaml:"env"`
 }
 
