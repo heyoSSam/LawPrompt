@@ -10,6 +10,7 @@ type Config struct {
 		Port      string `yaml:"PORT"`
 		Model     string `yaml:"MODEL"`
 		OllamaUrl string `yaml:"OLLAMAURL"`
+		SearchUrl string `yaml:"SEARCHURL"`
 	} `yaml:"env"`
 }
 
