@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/go-resty/resty/v2"
 	"net/http"
+	"strings"
 )
 
 type PromptRequest struct {
@@ -30,7 +31,7 @@ func AskModel(prompt string) (string, error) {
 	client := resty.New()
 	var result ModelResponse
 
-	promptContext := fmt.Sprintf(`Ты — юридический помощник, обученный на кодексах и других нормативных актах Республики Казахстан. Тебе нужно дать ответ от приведенного ниже правильного ответа в уважительной форме без '\n'.
+	promptContext := fmt.Sprintf(`Ты — юридический помощник, обученный на кодексах и других нормативных актах Республики Казахстан. Тебе нужно дать ответ от приведенного ниже правильного ответа в уважительной форме.
 
 		Ответ:
 		"""
@@ -58,5 +59,7 @@ func AskModel(prompt string) (string, error) {
 		return "", fmt.Errorf("unexpected status code: %d, body: %s", resp.StatusCode(), resp.String())
 	}
 
-	return result.Response, nil
+	processedResponse := strings.ReplaceAll(result.Response, "\n", "")
+
+	return processedResponse, nil
 }
